@@ -1,3 +1,4 @@
+.env
 .idea
 br_venv
 *.pyc

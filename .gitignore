@@ -1,5 +1,5 @@
 .idea
-venv
+br_venv
 *.pyc
 media
 db.sqliteq 

@@ -2,5 +2,7 @@
 br_venv
 *.pyc
 media
-db.sqliteq 
-
+db.sqlite
+python/
+mypython/
+media/

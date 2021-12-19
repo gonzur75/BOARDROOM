@@ -1,0 +1,27 @@
+{% block title %}home{% endblock %}
+
+{% include "base.html" %}
+{% block content %}
+    <h1>Available Boardrooms</h1>
+    <ul>
+        <div class="card-group">
+            {% for room in br_rooms %}
+                <div class="card w-75">
+                    <div class="card-body">
+                        <h5 class="card-title">Boardroom --- {{ room.name }}</h5>
+                        <p class="card-text">Projector:
+                         {% if room.projector %}Available
+                         {% else %}Not Available {% endif %}
+                        </p>
+
+                        <a href="{#  % url 'home:edit' pk=room.pk %}#}" class="btn btn-primary">EDIT</a>
+                        <a href="{#  {% url 'home:delete' pk=room.pk %}#}" class="btn btn-primary">EDIT</a>
+                        <a href="{#  {% url 'home:book' pk=room.pk %}#}" class="btn btn-primary">EDIT</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        </div>
+        </div>
+    </ul>
+{% endblock %}

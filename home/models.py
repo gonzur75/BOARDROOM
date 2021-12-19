@@ -5,5 +5,5 @@ from django.db import models
 
 class Boardrooms(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    capacity = models.IntegerField(0)
+    capacity = models.IntegerField()
     projector = models.BooleanField(null=True)

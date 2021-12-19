@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}modify{% endblock %}
+
+{% block content %}
+    <form action={% url 'home:br_rooms' %} method="post">
+        {% csrf_token %}
+        {{ br_form|crispy }}
+    <button class="btn btn-primary">Modify</button>
+    </form>
+{% endblock %}

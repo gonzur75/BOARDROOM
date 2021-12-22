@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags %}\
+{#{% load bootstrap3 %}#}
+{#{% bootstrap_messages %}#}
 
-{% block title %}modify{% endblock %}
+{% block title %}Modify{% endblock %}
 
 {% block content %}
-    <form action={% url 'home:br_rooms' %} method="post">
+    <h1> {{ error_message }}</h1>
+    <form action="{% url 'home:br_modify' pk=pk %}" method="post">
         {% csrf_token %}
-        {{ br_form|crispy }}
-    <button class="btn btn-primary">Modify</button>
+        {{ br_form | crispy }}
+        <button class="btn btn-primary">Modify</button>
     </form>
 {% endblock %}

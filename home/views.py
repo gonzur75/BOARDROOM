@@ -62,3 +62,7 @@ def br_modify(request, pk):
     # has_changed()
     else:
         return form_render(request, '', pk)
+
+def br_reserve(request, pk):
+    if request.method == 'POST':
+        

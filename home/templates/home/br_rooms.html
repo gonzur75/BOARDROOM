@@ -1,6 +1,7 @@
+{% extends "base.html" %}
 {% block title %}home{% endblock %}
 
-{% include "base.html" %}
+
 {% block content %}
     <h1>Available Boardrooms</h1>
     <ul>
@@ -18,6 +19,7 @@
                         <a href="{% url 'home:br_modify' pk=room.pk %}" class="btn btn-primary">EDIT</a>
                         <a href=" {% url 'home:br_del' pk=room.pk %}" class="btn btn-primary">DELETE</a>
                         <a href="{% url 'home:br_reserve' pk=room.pk %}" class="btn btn-primary">BOOK</a>
+                        <a href="{% url 'home:detail_view' pk=room.pk %}" class="btn btn-primary">DETAILS</a>
                     </div>
                 </div>
             {% endfor %}

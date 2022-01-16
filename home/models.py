@@ -17,7 +17,7 @@ class Boardrooms(models.Model):
 class Reservations(models.Model):
     rese_date = models.DateField(verbose_name="Reservation date", default=timezone.now(), validators=[date_validator])
     comment = models.TextField()
-    boardrooms = models.ForeignKey('Boardrooms', on_delete=models.CASCADE)
+    boardrooms = models.ForeignKey(Boardrooms, on_delete=models.CASCADE, related_name="reservations")
 
     class Meta:
         unique_together = ('rese_date', 'boardrooms')

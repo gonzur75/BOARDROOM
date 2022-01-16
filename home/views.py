@@ -1,7 +1,7 @@
 from django.db import models
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
-from home.models import Boardrooms
+from home.models import Boardrooms, Reservations
 from home.forms import BoardroomForm, BrModify, BrReserveForm
 
 
@@ -80,3 +80,19 @@ def br_reserve(request, pk):
         br_reserve_form = BrReserveForm(initial={"boardrooms": room_to_book})
         context = {'br_reserve_form': br_reserve_form, 'pk': pk}
         return render(request, 'home/reserve.html', context)
+
+
+def br_detail(request, pk):
+    if request.method == "POST":
+        pass
+    else:
+        br_data = Boardrooms.objects.get(pk=pk)
+        # br_reservation_data = Reservations.objects.get(boardrooms=pk)
+        rooms_reservation_data = br_data.reservations.all()
+        context = {"br_data": br_data,
+                   "rooms_reservation_data": rooms_reservation_data,
+                   "error_message": "Ups something went wrong!",
+                   'pk': pk}
+        return render(request, 'home/br_ind_view.html', context)
+
+

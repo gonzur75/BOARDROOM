@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Room details{% endblock %}
+
+{% block content %}
+
+    <div class="card text-center">
+        <div class="card-header">
+            <h5>Boardroom: <b>{{ br_data.name }}</b></h5>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text">Boardroom {{ br_data.name }} is capable of containing {{ br_data.capacity }} people,
+                {% if br_data.projector %} and it has projector.{% else %} but it does not have projector{% endif %}
+            </p>
+            <p>
+
+            <ul class="list-group">
+                {% if rooms_reservation_data %}
+                    <h5>This boardroom is booked on following days: </h5>
+                    {% for reservation  in rooms_reservation_data %}
+                        <li class="list-group-item">
+                            {{ reservation.rese_date }} with following comment: <u>{{ reservation.comment }}</u></li>
+                    {% endfor %}
+                {% else %}
+                <h5> This boardroom is not yet booked!</h5>
+                {% endif %}
+
+
+            </ul>
+            </p>
+            <a href="{% url 'home:br_modify' pk=br_data.pk %}" class="btn btn-primary">EDIT</a>
+            <a href=" {% url 'home:br_del' pk=br_data.pk %}" class="btn btn-primary">DELETE</a>
+            <a href="{% url 'home:br_reserve' pk=br_data.pk %}" class="btn btn-primary">BOOK</a>
+
+
+        </div>
+    </div>
+
+{% endblock %}

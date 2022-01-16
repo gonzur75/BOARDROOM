@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Reservation{% endblock %}
+
+
+{% block content %}
+    <h1> {{ error_message }}</h1>
+    <form action="{% url 'home:br_reserve' pk=pk %}" method="post">
+    {% csrf_token %}
+    {{ br_reserve_form | crispy }}
+    <input type="submit" value="Save" class="btn btn-warning">
+    </form>
+{% endblock %}

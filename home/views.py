@@ -1,7 +1,8 @@
+from django.db import models
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from home.models import Boardrooms
-from home.forms import BoardroomForm, BrModify
+from home.forms import BoardroomForm, BrModify, BrReserveForm
 
 
 def br_new(request):
@@ -20,7 +21,7 @@ def br_new(request):
 
 def br_view(request):
     br_rooms = Boardrooms.objects.all()
-    return render(request, 'home/br_rooms.html', {'br_rooms': br_rooms} )
+    return render(request, 'home/br_rooms.html', {'br_rooms': br_rooms})
 
 
 def br_del(request, pk):
@@ -63,6 +64,19 @@ def br_modify(request, pk):
     else:
         return form_render(request, '', pk)
 
+
 def br_reserve(request, pk):
     if request.method == 'POST':
-        
+        br_reserve_form = BrReserveForm(request.POST)
+        if br_reserve_form.is_valid():
+            br_reserve_form.save()
+            return redirect('home:br_rooms')
+        else:
+            context = {"br_reserve_form": br_reserve_form, "error_message": "Ups something went wrong!", 'pk': pk}
+            return render(request, 'home/reserve.html', context)
+
+    else:
+        room_to_book = Boardrooms.objects.get(pk=pk)
+        br_reserve_form = BrReserveForm(initial={"boardrooms": room_to_book})
+        context = {'br_reserve_form': br_reserve_form, 'pk': pk}
+        return render(request, 'home/reserve.html', context)

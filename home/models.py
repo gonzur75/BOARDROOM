@@ -1,7 +1,10 @@
+
 from django.core.validators import MinValueValidator
 from django.db import models
+from home.validators import date_validator
 
 # Create your models here.
+from django.utils import timezone
 
 
 class Boardrooms(models.Model):
@@ -12,7 +15,7 @@ class Boardrooms(models.Model):
 
 
 class Reservations(models.Model):
-    rese_date = models.DateField()
+    rese_date = models.DateField(verbose_name="Reservation date", default=timezone.now(), validators=[date_validator])
     comment = models.TextField()
     boardrooms = models.ForeignKey('Boardrooms', on_delete=models.CASCADE)
 

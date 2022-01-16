@@ -17,7 +17,7 @@
                         </p>
                         <a href="{% url 'home:br_modify' pk=room.pk %}" class="btn btn-primary">EDIT</a>
                         <a href=" {% url 'home:br_del' pk=room.pk %}" class="btn btn-primary">DELETE</a>
-                        <a href="{#  {% url 'home:book' pk=room.pk %}#}" class="btn btn-primary">EDIT</a>
+                        <a href="{% url 'home:br_reserve' pk=room.pk %}" class="btn btn-primary">BOOK</a>
                     </div>
                 </div>
             {% endfor %}

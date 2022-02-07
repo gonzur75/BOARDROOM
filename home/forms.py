@@ -9,7 +9,6 @@ from django.utils import timezone
 from home.models import Boardrooms, Reservations
 
 
-
 class BoardroomForm(forms.ModelForm):
     class Meta:
         model = Boardrooms

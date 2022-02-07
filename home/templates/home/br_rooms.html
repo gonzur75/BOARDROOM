@@ -4,27 +4,26 @@
 
 {% block content %}
     <h1>Available Boardrooms</h1>
-    <ul>
-        <div class="card-group">
+    <ul class="list-group list-group-flush">
+
             {% for room in br_rooms %}
+                <div class="card-list">
                 <div class="card w-75">
                     <div class="card-body">
                         <h5 class="card-title">Boardroom {{ room.name }}</h5>
                         <p class="card-text">Projector:
                             {% if room.projector %}Available
                             {% else %}Not Available {% endif %}
-                        </p>
-                        <p class="card-text">Room capacity: {{ room.capacity }}
-                        </p>
+                        <p class="card-text">Room capacity: {{ room.capacity }}</p>
+                        <p class="card-text"> {% if is_booked %}This boardroom is booked today
+                        {% else %} This Boardroom is available today{% endif %}</p>
                         <a href="{% url 'home:br_modify' pk=room.pk %}" class="btn btn-primary">EDIT</a>
                         <a href=" {% url 'home:br_del' pk=room.pk %}" class="btn btn-primary">DELETE</a>
                         <a href="{% url 'home:br_reserve' pk=room.pk %}" class="btn btn-primary">BOOK</a>
                         <a href="{% url 'home:detail_view' pk=room.pk %}" class="btn btn-primary">DETAILS</a>
                     </div>
                 </div>
+                </div>
             {% endfor %}
-        </div>
-        </div>
-        </div>
     </ul>
 {% endblock %}

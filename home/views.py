@@ -1,6 +1,7 @@
+import datetime
 
 from django.shortcuts import render, redirect
-from django.utils import timezone
+
 
 from home.models import Boardrooms, Reservations
 from home.forms import BoardroomForm, BrModify, BrReserveForm
@@ -21,15 +22,11 @@ def br_new(request):
 
 
 def br_view(request):
-    today_date = timezone.now()
     br_rooms = Boardrooms.objects.all()
     for room in br_rooms:
-        if today_date.date() in room.reservations.all():
-            is_booked = True
-        else:
-            is_booked = False
-
-    return render(request, 'home/br_rooms.html', {'br_rooms': br_rooms, "is_booked": is_booked})
+        reservation_dates = [reservation.rese_date for reservation in room.reservations.all()]
+        room.reserved = datetime.date.today() in reservation_dates
+    return render(request, 'home/br_rooms.html', {'br_rooms': br_rooms})
 
 
 def br_del(request, pk):

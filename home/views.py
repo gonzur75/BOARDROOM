@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 
 
 from home.models import Boardrooms, Reservations
-from home.forms import BoardroomForm, BrModify, BrReserveForm
+from home.forms import *
 
 
 def br_new(request):
@@ -37,11 +37,12 @@ def br_del(request, pk):
 
 def form_render(request, error_message, pk):
     room_to_modify = Boardrooms.objects.get(pk=pk)
-    br_form = BrModify(initial={
-        'name': room_to_modify.name,
-        'capacity': room_to_modify.capacity,
-        'projector': room_to_modify.projector,
-    })
+    br_form = BrModify(instance=room_to_modify)
+    # br_form = BrModify(initial={
+    #     'name': room_to_modify.name,
+    #     'capacity': room_to_modify.capacity,
+    #     'projector': room_to_modify.projector,
+    # })
     context = {'br_form': br_form, 'pk': pk, 'error_message': error_message}
     return render(request, 'home/modify.html', context)
 
@@ -100,4 +101,25 @@ def br_detail(request, pk):
                    'pk': pk}
         return render(request, 'home/br_ind_view.html', context)
 
+
+def search(request):
+        name = request.GET.get('name')
+        capacity = request.GET.get('capacity')
+        projector = request.GET.get('projector')
+        if name:
+            room = Boardrooms.objects.get(name=name)
+        elif name and capacity:
+            room = Boardrooms.objects.get(name=name).filter(capacity__gte=capacity)
+        elif name and capacity and projector:
+            room = Boardrooms.objects.get(name=name).filter(capacity__gte=capacity).filter(projector=projector)
+        elif name and projector:
+            room = Boardrooms.objects.get(name=name).filter(projector=projector)
+        elif capacity and projector:
+            room = Boardrooms.objects.filter(capacity__gte=capacity).filter(projector=projector)
+        elif capacity:
+            room = Boardrooms.objects.filter(capacity__gte=capacity)
+        elif projector:
+            room = Boardrooms.objects.get(projector=projector)
+        form = BrSearchForm()
+        return render(request, 'home/br-search.html', {'form': form})
 

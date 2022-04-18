@@ -12,6 +12,7 @@ urlpatterns = [
     path('room/del/<int:pk>', views.br_del, name='br_del'),
     path('room/reserve/<int:pk>', views.br_reserve, name='br_reserve'),
     path('room/detail_view/<int:pk>', views.br_detail, name='detail_view'),
+    path('room/search/', views.search, name='search'),
 
 
 ]

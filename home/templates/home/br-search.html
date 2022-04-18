@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% block title %}search{% endblock %}
+</head>
+<body>
+{% block content %}
+ <form action='' method="GET">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <input type="submit" value="Save" class="btn btn-warning">
+    </form>
+
+
+        <h1> Boardrooms you are looking for: </h1>
+    <ul class="list-group list-group-flush">
+    {% if br_rooms %}
+        {% for room in br_rooms %}
+            <div class="card-list">
+                <div class="card w-75">
+                    <div class="card-body">
+                        <h5 class="card-title">Boardroom {{ room.name }}</h5>
+                        <p class="card-text">Projector:
+                            {% if room.projector %}Available
+                            {% else %}Not Available {% endif %}
+                        <p class="card-text">Room capacity: {{ room.capacity }}</p>
+                        <p class="card-text"> {% if room.reserved %}This boardroom is booked today
+                        {% else %} This Boardroom is available today{% endif %}</p>
+                        <a href="{% url 'home:br_modify' pk=room.pk %}" class="btn btn-primary">EDIT</a>
+                        <a href=" {% url 'home:br_del' pk=room.pk %}" class="btn btn-primary">DELETE</a>
+                        <a href="{% url 'home:br_reserve' pk=room.pk %}" class="btn btn-primary">BOOK</a>
+                        <a href="{% url 'home:detail_view' pk=room.pk %}" class="btn btn-primary">DETAILS</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    </ul>
+{% endblock %}
+</body>
+</html>

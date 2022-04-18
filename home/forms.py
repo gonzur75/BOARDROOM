@@ -16,11 +16,11 @@ class BoardroomForm(forms.ModelForm):
 
 
 class BrModify(forms.ModelForm):
-    name = forms.CharField(max_length=255)
+    # name = forms.CharField(max_length=255)
 
     class Meta:
         model = Boardrooms
-        fields = {'capacity', 'projector'}
+        fields = '__all__'     # {'capacity', 'projector'}
 
 
 class BrReserveForm(forms.ModelForm):
@@ -39,4 +39,11 @@ class BrReserveForm(forms.ModelForm):
         # constraints = [
         #      models.CheckConstraint(check=models.Q(age__gte=18), name='age_gte_18'),
         # ]
+
+
+class BrSearchForm(forms.ModelForm):
+    class Meta:
+        model = Boardrooms
+        fields = '__all__'
+
 
